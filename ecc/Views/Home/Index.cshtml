@@ -1,0 +1,14 @@
+﻿@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome to Our Online Store</h1>
+    <p>Explore our store or manage products, orders, and categories.</p>
+
+    <div>
+        <h2>Sections</h2>
+        <a class="btn btn-primary" href="@Url.Action("PublicSection", "Home")">Public Section</a>
+        <a class="btn btn-secondary" href="@Url.Action("PrivateSection", "Home")">Private Section</a>
+    </div>
+</div>

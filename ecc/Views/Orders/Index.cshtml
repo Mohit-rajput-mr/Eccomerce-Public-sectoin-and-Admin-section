@@ -1,0 +1,36 @@
+@model IEnumerable<OSP.Models.Order>
+
+<h2>Manage Orders</h2>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Order Date</th>
+            <th>Delivery Address</th>
+            <th>Delivery Method</th>
+            <th>Delivery Charge</th>
+            <th>Total Cost</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var order in Model)
+        {
+            var productTotal = order.OrderDetails.Sum(od => od.Product.Price * od.Quantity);
+            var grandTotal = productTotal + order.DeliveryCharge;
+
+            <tr>
+                <td>@order.OrderDate.ToString("g")</td>
+                <td>@order.DeliveryCountry, @order.DeliveryCity, @order.PostalCode</td>
+                <td>@order.DeliveryMethod</td>
+                <td>@order.DeliveryCharge.ToString("C")</td>
+                <td>@grandTotal.ToString("C")</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@order.OrderId" class="btn btn-sm btn-info">Details</a>
+                    
+                    <a asp-action="Delete" asp-route-id="@order.OrderId" class="btn btn-sm btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

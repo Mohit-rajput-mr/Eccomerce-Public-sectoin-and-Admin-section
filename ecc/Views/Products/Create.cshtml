@@ -1,0 +1,33 @@
+@model OSP.Models.Product
+
+<h2>Create Product</h2>
+
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label asp-for="Name">Product Name</label>
+        <input asp-for="Name" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Price">Price</label>
+        <input asp-for="Price" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Description">Description</label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+    </div>
+    <div class="form-group">
+        <label asp-for="CategoryId">Select Existing Category</label>
+        <select asp-for="CategoryId" class="form-control" asp-items="@(new SelectList(ViewBag.Categories, "CategoryId", "Name"))">
+            <option value="">-- Select Category --</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label>Or Enter New Category</label>
+        <input asp-for="NewCategory" class="form-control" placeholder="Type new category here" />
+    </div>
+    <div class="form-group">
+        <label asp-for="ImageUrl">Image URL</label>
+        <input asp-for="ImageUrl" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary">Create</button>
+</form>

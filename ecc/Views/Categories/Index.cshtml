@@ -1,0 +1,24 @@
+@model IEnumerable<OSP.Models.Category>
+
+<h2>Categories</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+    <tr>
+        <td>@Html.DisplayFor(modelItem => item.Name)</td>
+        <td>
+            <a href="@Url.Action("Edit", "Categories", new { id = item.CategoryId })">Edit</a> |
+            <a href="@Url.Action("Details", "Categories", new { id = item.CategoryId })">Details</a> |
+            <a href="@Url.Action("Delete", "Categories", new { id = item.CategoryId })">Delete</a>
+        </td>
+    </tr>
+}
+    </tbody>
+</table>
+<a href="@Url.Action("Create", "Categories")">Create New</a>

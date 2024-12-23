@@ -1,0 +1,69 @@
+@model List<OSP.Models.CartItem>
+
+<h2>Your Shopping Cart</h2>
+
+@if (Model == null || !Model.Any())
+{
+    <p>Your cart is empty.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td><img src="@item.ImageUrl" style="width: 100px; height: 100px;" /></td>
+                    <td>@item.Name</td>
+                    <td>@item.Price.ToString("C")</td>
+                    <td>@item.Quantity</td>
+                    <td>@(item.Price * item.Quantity).ToString("C")</td>
+                    <td>
+                        <form method="post" asp-action="RemoveFromCart">
+                            <input type="hidden" name="productId" value="@item.ProductId" />
+                            <button type="submit" class="btn btn-danger">Remove</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <!-- Place Order Form -->
+    <form method="post" asp-action="PlaceOrder">
+        <div class="form-group">
+            <label>Country</label>
+            <input type="text" name="DeliveryCountry" class="form-control" required />
+        </div>
+        <div class="form-group">
+            <label>City</label>
+            <input type="text" name="DeliveryCity" class="form-control" required />
+        </div>
+        <div class="form-group">
+            <label>Postal Code</label>
+            <input type="text" name="PostalCode" class="form-control" required />
+        </div>
+
+        <div class="form-group">
+            <label>Select Delivery Method</label>
+            <select name="DeliveryMethod" class="form-control">
+                @foreach (var method in ViewBag.DeliveryMethods as List<OSP.Models.DeliveryMethod>)
+                {
+                    <option value="@method.Name">@method.Name - @method.Charge.ToString("C")</option>
+                }
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Place Order</button>
+    </form>
+}

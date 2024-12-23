@@ -1,0 +1,30 @@
+@model IEnumerable<OSP.Models.DeliveryMethod>
+
+<h2>Manage Delivery Methods</h2>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Add Delivery Method</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Charge</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var method in Model)
+        {
+            <tr>
+                <td>@method.Name</td>
+                <td>@method.Charge.ToString("C")</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@method.DeliveryMethodId" class="btn btn-warning btn-sm">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@method.DeliveryMethodId" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

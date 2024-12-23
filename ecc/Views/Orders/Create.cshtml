@@ -1,0 +1,39 @@
+@model OSP.Models.Order
+
+<h2>Create New Order</h2>
+
+<form asp-action="Create" method="post">
+    <!-- Order Date -->
+    <div class="form-group">
+        <label>Order Date</label>
+        <input asp-for="OrderDate" type="date" class="form-control" />
+        <span asp-validation-for="OrderDate" class="text-danger"></span>
+    </div>
+
+    <!-- Products Selection -->
+    <div class="form-group">
+        <label>Select Products</label>
+        <select name="ProductIds" class="form-control" multiple>
+            @foreach (var product in ViewBag.Products)
+            {
+                <option value="@product.ProductId">@product.Name - @product.Price.ToString("C")</option>
+            }
+        </select>
+        <small class="text-muted">Hold Ctrl (Cmd on Mac) to select multiple products.</small>
+    </div>
+
+    <!-- Quantities Input -->
+    <div class="form-group">
+        <label>Quantities</label>
+        <input name="Quantities" type="text" class="form-control" placeholder="Enter quantities separated by commas (e.g., 1,2,3)" />
+        <small class="text-muted">Enter quantities in the same order as selected products.</small>
+    </div>
+
+    <!-- Submit Button -->
+    <button type="submit" class="btn btn-primary">Create Order</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
